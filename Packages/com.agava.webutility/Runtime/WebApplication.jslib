@@ -10,8 +10,8 @@ const library = {
 
     // External C# calls.
 
-    WebApplicationGetInBackground: function () {
-        yandexGames.yandexGamesSdkInitialize();
+    GetWebApplicationInBackground: function () {
+        webApplication.getInBackground();
     },
 }
 
