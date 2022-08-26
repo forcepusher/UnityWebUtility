@@ -1,0 +1,16 @@
+{
+  "name": "com.agava.webutility",
+  "version": "0.0.1",
+  "displayName": "Web Utility",
+  "type": "library",
+  "unity": "2020.3",
+  "description": "Tools that fix common issues in Unity WebGL export.",
+  "license": "MIT",
+  "samples": [
+    {
+      "displayName": "Playtesting Sample",
+      "description": "Contains sample for uploading to web platforms and manually testing testing the toolset.",
+      "path": "Samples~/Playtesting"
+    }
+  ]
+}
