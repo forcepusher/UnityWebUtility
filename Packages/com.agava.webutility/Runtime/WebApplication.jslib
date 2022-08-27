@@ -11,7 +11,7 @@ const library = {
     // External C# calls.
 
     GetWebApplicationInBackground: function () {
-        webApplication.getInBackground();
+        return webApplication.getInBackground();
     },
 }
 
