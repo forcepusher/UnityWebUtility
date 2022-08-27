@@ -4,13 +4,19 @@ namespace Agava.WebUtility.Samples
 {
     public class PlaytestingCanvas : MonoBehaviour
     {
-        private void Update()
+        private void OnEnable()
         {
-#if !UNITY_WEBGL || UNITY_EDITOR
-            return;
-#endif
+            WebApplication.InBackgroundChange += OnInBackgroundChange;
+        }
 
-            AudioListener.pause = WebApplication.InBackground;
+        private void OnDisable()
+        {
+            WebApplication.InBackgroundChange -= OnInBackgroundChange;
+        }
+
+        private void OnInBackgroundChange(bool inBackground)
+        {
+            AudioListener.pause = inBackground;
         }
     }
 }

@@ -1,14 +1,11 @@
 const library = {
+    
     // Class definition.
   
-    inBackgroundChangeCallbackPtr: undefined,
-
     $webApplication: {
         setInBackgroundChangeCallback: function (callbackPtr) {
-            webApplication.inBackgroundChangeCallbackPtr = callbackPtr;
-
             document.addEventListener('visibilitychange', function () {
-                dynCall('vii', callbackPtr, [errorUnmanagedStringPtr]);
+                dynCall('vi', callbackPtr, [document.hidden]);
             });
         },
 

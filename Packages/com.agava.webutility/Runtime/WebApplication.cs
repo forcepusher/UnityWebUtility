@@ -1,17 +1,24 @@
 using AOT;
 using System;
 using System.Runtime.InteropServices;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using UnityEngine;
+#endif
 
 namespace Agava.WebUtility
 {
     public static class WebApplication
     {
         /// <remarks>
-        /// Triggers way faster than InBackground, but
-        /// I will break your legs if you forget to unsubscribe from this event.
+        /// Triggers way faster than <see cref="InBackground"/>,<br/>
+        /// but I will break your legs if you forget to unsubscribe from this event.
         /// </remarks>
         public static event Action<bool> InBackgroundChange;
 
+        /// <remarks>
+        /// Triggers with a slight delay when going into background.<br/>
+        /// Use <see cref="InBackgroundChange"/> when a faster result is needed.
+        /// </remarks>
         public static bool InBackground => GetWebApplicationInBackground();
 
         [DllImport("__Internal")]
