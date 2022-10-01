@@ -19,7 +19,7 @@ namespace Agava.WebUtility
         /// Triggers with a slight delay when going into background.<br/>
         /// Use <see cref="InBackgroundChangeEvent"/> when a faster result is needed.
         /// </remarks>
-        public static bool InBackground => GetWebApplicationInBackground();
+        public static bool InBackground = false;
 
         [DllImport("__Internal")]
         private static extern bool GetWebApplicationInBackground();
@@ -39,6 +39,7 @@ namespace Agava.WebUtility
         [MonoPInvokeCallback(typeof(Action<bool>))]
         private static void OnInBackgroundChange(bool hidden)
         {
+            InBackground = hidden;
             InBackgroundChangeEvent?.Invoke(hidden);
         }
     }
