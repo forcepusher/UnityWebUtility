@@ -72,17 +72,20 @@ const library = {
         ],
 
         getEnabled: function () {
-            return document.hidden;
+            return !adBlock.bannerIds.every(function(bannerId) {
+                const fakeAdBannerId = document.querySelector('#' + bannerId);
+                if (fakeAdBannerId) { return fakeAdBannerId.offsetParent; }
+                
+                return null;
+            });
         },
 
         initialize: function () {
             const fakeAdContainer = document.createElement('div');
-            // fakeAdContainer.innerHTML = adBlock.fakeAdBannerIds.map(fakeAdBannerId => `<div id="${fakeAdBannerId}"></div>`).join('');
             fakeAdContainer.innerHTML = adBlock.fakeAdBannerIds.map(function(fakeAdBannerId) {
                 return '<div id=' + fakeAdBannerId + '></div>'
             }).join('');
             document.body.appendChild(fakeAdContainer);
-            console.log("ASMFLKSAMFLKSA" + fakeAdContainer.innerHTML);
         },
     },
 
