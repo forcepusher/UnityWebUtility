@@ -62,9 +62,21 @@ const library = {
     
     // Class definition.
   
+    bannerIds: [
+        'AdHeader',
+        'AdContainer',
+        'AD_Top',
+        'homead',
+        'ad-lead'
+    ],
+
     $adBlock: {
         getEnabled: function () {
             return document.hidden;
+        },
+
+        initialize: function () {
+            
         },
     },
 
@@ -72,6 +84,10 @@ const library = {
 
     GetAdBlockEnabled: function () {
         return adBlock.getEnabled();
+    },
+
+    AdBlockInitialize: function () {
+        adBlock.initialize();
     },
 }
 
