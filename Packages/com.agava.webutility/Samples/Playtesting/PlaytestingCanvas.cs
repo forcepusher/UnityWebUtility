@@ -8,12 +8,6 @@ namespace Agava.WebUtility.Samples
         [SerializeField]
         private Text _adBlockStatusText;
 
-        private void Awake()
-        {
-            _adBlockStatusText.color = AdBlock.Enabled ? Color.red : Color.green;
-            _adBlockStatusText.text = $"{nameof(AdBlock)}.{nameof(AdBlock.Enabled)} = {AdBlock.Enabled}";
-        }
-
         private void OnEnable()
         {
             WebApplication.InBackgroundChangeEvent += OnInBackgroundChange;
@@ -22,6 +16,12 @@ namespace Agava.WebUtility.Samples
         private void OnDisable()
         {
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
+        }
+
+        private void Update()
+        {
+            _adBlockStatusText.color = AdBlock.Enabled ? Color.red : Color.green;
+            _adBlockStatusText.text = $"{nameof(AdBlock)}.{nameof(AdBlock.Enabled)} = {AdBlock.Enabled}";
         }
 
         private void OnInBackgroundChange(bool inBackground)
