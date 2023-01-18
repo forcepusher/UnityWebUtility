@@ -72,10 +72,10 @@ const library = {
         ],
 
         getEnabled: function () {
-            return !adBlock.bannerIds.every(function(bannerId) {
-                const fakeAdBannerId = document.querySelector('#' + bannerId);
-                if (fakeAdBannerId) { return fakeAdBannerId.offsetParent; }
-                
+            return !adBlock.fakeAdBannerIds.every(function(fakeAdBannerId) {
+                const fakeAdBannerDiv = document.querySelector('#' + fakeAdBannerId);
+                if (fakeAdBannerDiv) { return fakeAdBannerDiv.offsetParent; }
+
                 return null;
             });
         },
