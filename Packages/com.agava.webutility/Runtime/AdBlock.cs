@@ -7,6 +7,9 @@ namespace Agava.WebUtility
 {
     public static class AdBlock
     {
+        /// <returns>
+        /// Status of an AdBlock addon in the browser.
+        /// </returns>
         public static bool Enabled => GetAdBlockEnabled();
 
         [DllImport("__Internal")]
