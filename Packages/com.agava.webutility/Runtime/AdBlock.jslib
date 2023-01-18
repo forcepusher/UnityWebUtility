@@ -61,22 +61,24 @@
 const library = {
     
     // Class definition.
-  
-    bannerIds: [
-        'AdHeader',
-        'AdContainer',
-        'AD_Top',
-        'homead',
-        'ad-lead'
-    ],
 
     $adBlock: {
+        fakeAdBannerIds: [
+            'AdHeader',
+            'AdContainer',
+            'AD_Top',
+            'homead',
+            'ad-lead'
+        ],
+
         getEnabled: function () {
             return document.hidden;
         },
 
         initialize: function () {
-            
+            const fakeAdContainer = document.createElement('div');
+            fakeAdContainer.innerHTML = adBlock.fakeAdBannerIds.map(fakeAdBannerId => `<div id="${fakeAdBannerId}"></div>`).join('');
+            document.body.appendChild(fakeAdContainer);
         },
     },
 
