@@ -1,6 +1,6 @@
 # com.agava.webutility  
   
-[Try the Utility demo here.](https://yandex.ru/games/app/192571?draft=true)  
+[Try the Utility demo here.](https://yandex.ru/games/app/223980?draft=true)  
   
 Make sure you have standalone [Git](https://git-scm.com/downloads) installed first. Reboot after installation.  
 In Unity, open "Window" -> "Package Manager".  
