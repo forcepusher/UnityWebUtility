@@ -4,7 +4,8 @@ const library = {
 
     $device: {
         getIsMobile: function () {
-            return false; // TODO THIS IS TEMPORARY
+            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
+            return isMobileDevice;
         },
     },
 
