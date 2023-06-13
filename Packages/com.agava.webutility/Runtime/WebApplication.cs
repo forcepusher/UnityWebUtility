@@ -25,7 +25,7 @@ namespace Agava.WebUtility
         private static extern bool GetWebApplicationInBackground();
 
         [DllImport("__Internal")]
-        private static extern bool SetWebApplicationInBackgroundChangeCallback(Action<bool> callback);
+        private static extern bool WebApplicationInitialize(Action<bool> onInBackgroundChange);
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -33,7 +33,7 @@ namespace Agava.WebUtility
         [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity InitializeOnLoadMethod")]
         private static void Initialize()
         {
-            SetWebApplicationInBackgroundChangeCallback(OnInBackgroundChange);
+            WebApplicationInitialize(OnInBackgroundChange);
         }
 
         [MonoPInvokeCallback(typeof(Action<bool>))]
