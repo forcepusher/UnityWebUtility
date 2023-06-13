@@ -11,7 +11,7 @@ namespace Agava.WebUtility
     {
         /// <remarks>
         /// Triggers way faster than <see cref="InBackground"/>,<br/>
-        /// but I will break your legs if you forget to unsubscribe from this event.
+        /// but don't forget to unsubscribe from this event.
         /// </remarks>
         public static event Action<bool> InBackgroundChangeEvent;
 
