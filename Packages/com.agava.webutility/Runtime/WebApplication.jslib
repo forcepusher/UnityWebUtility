@@ -4,9 +4,9 @@ const library = {
 
     $webApplication: {
         initialize: function (onInBackgroundChangeCallbackPtr) {
-            document.addEventListener("pointerdown", () => {
+            document.addEventListener('pointerdown', function () {
                 window.focus();
-            }); // Fix Unity OnApplicationFocus() callback bug in Chrome-based mobile browsers when running in an iFrame.
+            }); // Fix Unity OnApplicationFocus() callback bug in mobile Chrome-based browsers when running in an iFrame.
 
             document.addEventListener('visibilitychange', function () {
                 dynCall('vi', onInBackgroundChangeCallbackPtr, [document.hidden]);
