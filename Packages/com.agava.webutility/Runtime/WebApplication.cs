@@ -11,6 +11,18 @@ namespace Agava.WebUtility
 {
     public static class WebApplication
     {
+        public static bool IsRunningOnWebGL
+        {
+            get
+            {
+#if UNITY_WEBGL && !UNITY_EDITOR
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
         /// <remarks>
         /// Triggers way faster than <see cref="InBackground"/>,<br/>
         /// but don't forget to unsubscribe from this event.
