@@ -12,5 +12,6 @@
       "description": "Contains sample for uploading to web platforms and manually testing testing the toolset.",
       "path": "Samples~/Playtesting"
     }
-  ]
+  ],
+  "author": "https://github.com/forcepusher"
 }
