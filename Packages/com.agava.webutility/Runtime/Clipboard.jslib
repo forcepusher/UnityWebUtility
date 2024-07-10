@@ -1,4 +1,4 @@
-const library = {
+const clipboardLibrary = {
 
     // Class definition.
 
@@ -15,5 +15,5 @@ const library = {
     },
 }
 
-autoAddDeps(library, '$clipboard');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(clipboardLibrary, '$clipboard');
+mergeInto(LibraryManager.library, clipboardLibrary);

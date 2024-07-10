@@ -1,4 +1,4 @@
-const library = {
+const adBlockLibrary = {
     
     // Class definition.
 
@@ -40,5 +40,5 @@ const library = {
     },
 }
 
-autoAddDeps(library, '$adBlock');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(adBlockLibrary, '$adBlock');
+mergeInto(LibraryManager.library, adBlockLibrary);

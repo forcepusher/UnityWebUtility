@@ -1,4 +1,4 @@
-const library = {
+const webApplicationLibrary = {
 
     // Class definition.
 
@@ -29,5 +29,5 @@ const library = {
     },
 }
 
-autoAddDeps(library, '$webApplication');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(webApplicationLibrary, '$webApplication');
+mergeInto(LibraryManager.library, webApplicationLibrary);

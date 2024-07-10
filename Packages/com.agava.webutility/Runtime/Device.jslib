@@ -1,4 +1,4 @@
-const library = {
+const deviceLibrary = {
     
     // Class definition.
 
@@ -16,5 +16,5 @@ const library = {
     },
 }
 
-autoAddDeps(library, '$device');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(deviceLibrary, '$device');
+mergeInto(LibraryManager.library, deviceLibrary);
