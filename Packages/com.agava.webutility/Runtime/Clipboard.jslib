@@ -7,12 +7,35 @@ const clipboardLibrary = {
       // Do something to fix the iOS behavior that prevents clipboard from working
     },
 
-    write: function (text, successCallbackPtr, errorCallbackPtr) {
-      navigator.clipboard.writeText(text);
+    write: function (clipboardText, successCallbackPtr, errorCallbackPtr) {
+      navigator.clipboard.writeText(clipboardText).then(function () {
+        dynCall('v', successCallbackPtr, []);
+      }).catch(function (error) {
+        clipboard.invokeErrorCallback(error, errorCallbackPtr);
+      });
     },
 
     read: function (successCallbackPtr, errorCallbackPtr) {
-      //navigator.clipboard.readText();
+      navigator.clipboard.readText().then(function (clipboardText) {
+        const clipboardTextUnmanagedStringPtr = clipboard.allocateUnmanagedString(clipboardText);
+        dynCall('vi', successCallbackPtr, [clipboardTextUnmanagedStringPtr]);
+        _free(clipboardTextUnmanagedStringPtr);
+      }).catch(function (error) {
+        clipboard.invokeErrorCallback(error, errorCallbackPtr);
+      });
+    },
+
+    invokeErrorCallback: function (error, errorCallbackPtr) {
+      var errorMessage;
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else {
+        errorMessage = 'browser API thrown an unexpected type as error: ' + JSON.stringify(error);
+      }
+
+      const errorUnmanagedStringPtr = yandexGames.allocateUnmanagedString(errorMessage);
+      dynCall('vi', errorCallbackPtr, [errorUnmanagedStringPtr]);
+      _free(errorUnmanagedStringPtr);
     },
 
     allocateUnmanagedString: function (string) {
@@ -29,10 +52,10 @@ const clipboardLibrary = {
     clipboard.initialize();
   },
 
-  ClipboardWrite: function (textPtr, successCallbackPtr, errorCallbackPtr) {
-    const text = UTF8ToString(textPtr);
+  ClipboardWrite: function (clipboardTextPtr, successCallbackPtr, errorCallbackPtr) {
+    const clipboardText = UTF8ToString(clipboardTextPtr);
 
-    clipboard.write(text, successCallbackPtr, errorCallbackPtr);
+    clipboard.write(clipboardText, successCallbackPtr, errorCallbackPtr);
   },
 
   ClipboardRead: function (successCallbackPtr, errorCallbackPtr) {
