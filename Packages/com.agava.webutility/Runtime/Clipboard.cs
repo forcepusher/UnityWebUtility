@@ -22,8 +22,18 @@ namespace Agava.WebUtility
         [DllImport("__Internal")]
         private static extern bool ClipboardInitialize();
 
+        public static string Read()
+        {
+            return ClipboardRead();
+        }
+
         [DllImport("__Internal")]
         private static extern string ClipboardRead();
+
+        public static void Write(string text)
+        {
+            ClipboardWrite(text);
+        }
 
         [DllImport("__Internal")]
         private static extern void ClipboardWrite(string text);
