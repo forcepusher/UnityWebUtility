@@ -49,5 +49,10 @@ namespace Agava.WebUtility.Samples
         {
             Clipboard.Write(_clipboardInputField.text);
         }
+
+        public void OnPasteFromClipboardButtonClick()
+        {
+            Clipboard.Read((text) => _clipboardInputField.text = text);
+        }
     }
 }

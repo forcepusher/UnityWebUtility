@@ -59,7 +59,7 @@ namespace Agava.WebUtility
         #endregion
 
         #region Read
-        public static void Read(Action<string> onSuccessCallback = null, Action<string> onErrorCallback = null)
+        public static void Read(Action<string> onSuccessCallback, Action<string> onErrorCallback = null)
         {
             s_onReadSuccessCallback = onSuccessCallback;
             s_onReadErrorCallback = onErrorCallback;
