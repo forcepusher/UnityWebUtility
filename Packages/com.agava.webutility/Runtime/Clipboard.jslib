@@ -1,36 +1,43 @@
 const clipboardLibrary = {
 
-    // Class definition.
+  // Class definition.
 
-    $clipboard: {
-        initialize: function () {
-            // Do something to fix the iOS behavior that prevents clipboard from working
-        },
-
-        write: function (text) {
-            navigator.clipboard.writeText(text);
-        },
-
-        read: function () {
-            //navigator.clipboard.readText();
-        },
+  $clipboard: {
+    initialize: function () {
+      // Do something to fix the iOS behavior that prevents clipboard from working
     },
 
-    // External C# calls.
-
-    ClipboardInitialize: function () {
-        clipboard.initialize();
+    write: function (text, successCallbackPtr, errorCallbackPtr) {
+      navigator.clipboard.writeText(text);
     },
 
-    ClipboardWrite: function(textPtr) {
-        const text = UTF8ToString(textPtr);
-
-        clipboard.write(text);
+    read: function (successCallbackPtr, errorCallbackPtr) {
+      //navigator.clipboard.readText();
     },
 
-    ClipboardRead: function() {
-        return clipboard.read();
+    allocateUnmanagedString: function (string) {
+      const stringBufferSize = lengthBytesUTF8(string) + 1;
+      const stringBufferPtr = _malloc(stringBufferSize);
+      stringToUTF8(string, stringBufferPtr, stringBufferSize);
+      return stringBufferPtr;
     },
+  },
+
+  // External C# calls.
+
+  ClipboardInitialize: function () {
+    clipboard.initialize();
+  },
+
+  ClipboardWrite: function (textPtr, successCallbackPtr, errorCallbackPtr) {
+    const text = UTF8ToString(textPtr);
+
+    clipboard.write(text, successCallbackPtr, errorCallbackPtr);
+  },
+
+  ClipboardRead: function (successCallbackPtr, errorCallbackPtr) {
+    return clipboard.read(successCallbackPtr, errorCallbackPtr);
+  },
 }
 
 autoAddDeps(clipboardLibrary, '$clipboard');
