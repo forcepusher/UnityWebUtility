@@ -9,6 +9,8 @@ namespace Agava.WebUtility.Samples
         private Text _adBlockStatusText;
         [SerializeField]
         private Text _isMobileText;
+        [SerializeField]
+        private InputField _clipboardInputField;
 
         private void OnEnable()
         {
@@ -22,6 +24,9 @@ namespace Agava.WebUtility.Samples
 
         private void Update()
         {
+            if (!WebApplication.IsRunningOnWebGL)
+                return;
+
             _adBlockStatusText.color = AdBlock.Enabled ? Color.red : Color.green;
             _adBlockStatusText.text = $"{nameof(AdBlock)}.{nameof(AdBlock.Enabled)} = {AdBlock.Enabled}";
             _isMobileText.text = $"{nameof(Device)}.{nameof(Device.IsMobile)} = {Device.IsMobile}";
@@ -33,6 +38,11 @@ namespace Agava.WebUtility.Samples
             // They're both broken in Web, but work perfect together. Trust me on this.
             AudioListener.pause = inBackground;
             AudioListener.volume = inBackground ? 0f : 1f;
+        }
+
+        public void OnCopyToClipboardButtonClick()
+        {
+            Clipboard.Write(_clipboardInputField.text);
         }
     }
 }

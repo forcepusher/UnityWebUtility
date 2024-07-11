@@ -8,7 +8,7 @@ const clipboardLibrary = {
         },
 
         write: function (text) {
-
+            navigator.clipboard.writeText(text);
         },
 
         read: function () {
@@ -22,7 +22,9 @@ const clipboardLibrary = {
         clipboard.initialize();
     },
 
-    ClipboardWrite: function(text) {
+    ClipboardWrite: function(textPtr) {
+        const text = UTF8ToString(textPtr);
+
         clipboard.write(text);
     },
 

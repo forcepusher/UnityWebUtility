@@ -1,9 +1,6 @@
 using System.Runtime.InteropServices;
 #if UNITY_WEBGL && !UNITY_EDITOR
 using UnityEngine;
-using UnityEngine.Scripting;
-
-[assembly: AlwaysLinkAssembly]
 #endif
 
 namespace Agava.WebUtility
