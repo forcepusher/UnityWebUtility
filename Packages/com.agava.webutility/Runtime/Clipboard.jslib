@@ -10,6 +10,7 @@ const clipboardLibrary = {
     write: function (clipboardText, successCallbackPtr, errorCallbackPtr) {
       if (!navigator.clipboard) {
         clipboard.invokeErrorCallback(new Error("clipboard is available only in a secure context"), errorCallbackPtr);
+        return;
       }
 
       navigator.clipboard.writeText(clipboardText).then(function () {
@@ -22,6 +23,7 @@ const clipboardLibrary = {
     read: function (successCallbackPtr, errorCallbackPtr) {
       if (!navigator.clipboard) {
         clipboard.invokeErrorCallback(new Error("clipboard is available only in a secure context"), errorCallbackPtr);
+        return;
       }
 
       navigator.clipboard.readText().then(function (clipboardText) {
