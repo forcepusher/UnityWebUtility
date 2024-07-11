@@ -12,7 +12,7 @@ const clipboardLibrary = {
         },
 
         read: function () {
-            return "derp";
+            //navigator.clipboard.readText();
         },
     },
 

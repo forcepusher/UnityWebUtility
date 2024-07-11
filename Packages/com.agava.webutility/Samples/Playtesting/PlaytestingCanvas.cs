@@ -22,6 +22,11 @@ namespace Agava.WebUtility.Samples
             WebApplication.InBackgroundChangeEvent -= OnInBackgroundChange;
         }
 
+        private void Awake()
+        {
+            WebApplication.CallbackLogging = true;
+        }
+
         private void Update()
         {
             if (!WebApplication.IsRunningOnWebGL)

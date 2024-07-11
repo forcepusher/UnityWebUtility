@@ -1,4 +1,7 @@
+using AOT;
+using System;
 using System.Runtime.InteropServices;
+using UnityEngine;
 #if UNITY_WEBGL && !UNITY_EDITOR
 using UnityEngine;
 #endif
@@ -7,10 +10,15 @@ namespace Agava.WebUtility
 {
     public static class Clipboard
     {
+        private static Action s_onWriteSuccessCallback;
+        private static Action<string> s_onWriteErrorCallback;
+
+        private static Action<string> s_onReadSuccessCallback;
+        private static Action<string> s_onReadErrorCallback;
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 #endif
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity InitializeOnLoadMethod")]
         private static void Initialize()
         {
             ClipboardInitialize();
@@ -19,20 +27,66 @@ namespace Agava.WebUtility
         [DllImport("__Internal")]
         private static extern bool ClipboardInitialize();
 
-        public static string Read()
+        #region Write
+        public static void Write(string text, Action onSuccessCallback = null, Action<string> onErrorCallback = null)
         {
-            return ClipboardRead();
+            s_onWriteSuccessCallback = onSuccessCallback;
+            s_onWriteErrorCallback = onErrorCallback;
+
+            ClipboardWrite(text, OnWriteSuccessCallback, OnWriteErrorCallback);
         }
 
         [DllImport("__Internal")]
-        private static extern string ClipboardRead();
+        private static extern void ClipboardWrite(string text, Action successCallback, Action<string> errorCallback);
 
-        public static void Write(string text)
+        [MonoPInvokeCallback(typeof(Action))]
+        private static void OnWriteSuccessCallback()
         {
-            ClipboardWrite(text);
+            if (WebApplication.CallbackLogging)
+                Debug.Log($"{nameof(Clipboard)}.{nameof(OnWriteSuccessCallback)} invoked");
+
+            s_onWriteSuccessCallback?.Invoke();
+        }
+
+        [MonoPInvokeCallback(typeof(Action<string>))]
+        private static void OnWriteErrorCallback(string errorMessage)
+        {
+            if (WebApplication.CallbackLogging)
+                Debug.Log($"{nameof(Clipboard)}.{nameof(OnWriteErrorCallback)} invoked, {nameof(errorMessage)} = {errorMessage}");
+
+            s_onWriteErrorCallback?.Invoke(errorMessage);
+        }
+        #endregion
+
+        #region Read
+        public static void Read(Action<string> onSuccessCallback = null, Action<string> onErrorCallback = null)
+        {
+            s_onReadSuccessCallback = onSuccessCallback;
+            s_onReadErrorCallback = onErrorCallback;
+
+            ClipboardRead(OnReadSuccessCallback, OnReadErrorCallback);
         }
 
         [DllImport("__Internal")]
-        private static extern void ClipboardWrite(string text);
+        private static extern void ClipboardRead(Action<string> successCallback, Action<string> errorCallback);
+
+        [MonoPInvokeCallback(typeof(Action<string>))]
+        private static void OnReadSuccessCallback(string text)
+        {
+            if (WebApplication.CallbackLogging)
+                Debug.Log($"{nameof(Clipboard)}.{nameof(OnReadSuccessCallback)} invoked, {nameof(text)} = {text}");
+
+            s_onReadSuccessCallback?.Invoke(text);
+        }
+
+        [MonoPInvokeCallback(typeof(Action<string>))]
+        private static void OnReadErrorCallback(string errorMessage)
+        {
+            if (WebApplication.CallbackLogging)
+                Debug.Log($"{nameof(Clipboard)}.{nameof(OnReadErrorCallback)} invoked, {nameof(errorMessage)} = {errorMessage}");
+
+            s_onReadErrorCallback?.Invoke(errorMessage);
+        }
+        #endregion
     }
 }
