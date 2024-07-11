@@ -4,7 +4,15 @@ const clipboardLibrary = {
 
     $clipboard: {
         initialize: function () {
-            
+            // Do something to fix the iOS behavior that prevents clipboard from working
+        },
+
+        write: function (text) {
+
+        },
+
+        read: function () {
+            return "derp";
         },
     },
 
@@ -12,6 +20,14 @@ const clipboardLibrary = {
 
     ClipboardInitialize: function () {
         clipboard.initialize();
+    },
+
+    ClipboardWrite: function(text) {
+        clipboard.write(text);
+    },
+
+    ClipboardRead: function() {
+        return clipboard.read();
     },
 }
 
