@@ -8,6 +8,10 @@ const clipboardLibrary = {
     },
 
     write: function (clipboardText, successCallbackPtr, errorCallbackPtr) {
+      if (!navigator.clipboard) {
+        clipboard.invokeErrorCallback(new Error("clipboard is available only in a secure context"), errorCallbackPtr);
+      }
+
       navigator.clipboard.writeText(clipboardText).then(function () {
         dynCall('v', successCallbackPtr, []);
       }).catch(function (error) {
@@ -16,6 +20,10 @@ const clipboardLibrary = {
     },
 
     read: function (successCallbackPtr, errorCallbackPtr) {
+      if (!navigator.clipboard) {
+        clipboard.invokeErrorCallback(new Error("clipboard is available only in a secure context"), errorCallbackPtr);
+      }
+
       navigator.clipboard.readText().then(function (clipboardText) {
         const clipboardTextUnmanagedStringPtr = clipboard.allocateUnmanagedString(clipboardText);
         dynCall('vi', successCallbackPtr, [clipboardTextUnmanagedStringPtr]);
@@ -33,7 +41,7 @@ const clipboardLibrary = {
         errorMessage = 'browser API thrown an unexpected type as error: ' + JSON.stringify(error);
       }
 
-      const errorUnmanagedStringPtr = yandexGames.allocateUnmanagedString(errorMessage);
+      const errorUnmanagedStringPtr = clipboard.allocateUnmanagedString(errorMessage);
       dynCall('vi', errorCallbackPtr, [errorUnmanagedStringPtr]);
       _free(errorUnmanagedStringPtr);
     },
