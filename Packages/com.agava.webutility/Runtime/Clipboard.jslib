@@ -4,7 +4,7 @@ const clipboardLibrary = {
 
   $clipboard: {
     initialize: function () {
-      // Do something to fix the iOS behavior that prevents clipboard from working
+      // Do something to fix the Safari behavior that prevents the clipboard from working
     },
 
     write: function (clipboardText, successCallbackPtr, errorCallbackPtr) {
