@@ -2,9 +2,6 @@ using AOT;
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
-#if UNITY_WEBGL && !UNITY_EDITOR
-using UnityEngine;
-#endif
 
 namespace Agava.WebUtility
 {
@@ -15,17 +12,6 @@ namespace Agava.WebUtility
 
         private static Action<string> s_onReadSuccessCallback;
         private static Action<string> s_onReadErrorCallback;
-
-#if UNITY_WEBGL && !UNITY_EDITOR
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-#endif
-        private static void Initialize()
-        {
-            ClipboardInitialize();
-        }
-
-        [DllImport("__Internal")]
-        private static extern bool ClipboardInitialize();
 
         #region Write
         public static void Write(string text, Action onSuccessCallback = null, Action<string> onErrorCallback = null)

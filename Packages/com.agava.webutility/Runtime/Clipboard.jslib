@@ -3,10 +3,6 @@ const clipboardLibrary = {
   // Class definition.
 
   $clipboard: {
-    initialize: function () {
-      // Do something to fix the Safari behavior that prevents the clipboard from working
-    },
-
     write: function (clipboardText, successCallbackPtr, errorCallbackPtr) {
       if (!navigator.clipboard) {
         clipboard.invokeErrorCallback(new Error("clipboard is available only in a secure context"), errorCallbackPtr);
@@ -57,10 +53,6 @@ const clipboardLibrary = {
   },
 
   // External C# calls.
-
-  ClipboardInitialize: function () {
-    clipboard.initialize();
-  },
 
   ClipboardWrite: function (clipboardTextPtr, successCallbackPtr, errorCallbackPtr) {
     const clipboardText = UTF8ToString(clipboardTextPtr);
