@@ -4,7 +4,7 @@ const deviceLibrary = {
 
   $device: {
     getIsMobile: function () {
-      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent);
+      const isMobileDevice = navigator.maxTouchPoints > 0 && !!document.createElement('canvas').getContext('webgl')?.getExtension('WEBGL_compressed_texture_astc');
       return isMobileDevice;
     },
   },
