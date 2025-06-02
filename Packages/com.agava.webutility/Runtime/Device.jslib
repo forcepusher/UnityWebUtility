@@ -3,9 +3,13 @@ const deviceLibrary = {
   // Class definition.
 
   $device: {
+    isMobileDevice: undefined,
+
     getIsMobile: function () {
-      const isMobileDevice = navigator.maxTouchPoints > 0 && !!document.createElement('canvas').getContext('webgl')?.getExtension('WEBGL_compressed_texture_astc');
-      return isMobileDevice;
+      if (device.isMobileDevice === undefined)
+        device.isMobileDevice = navigator.maxTouchPoints > 0 && !!document.createElement('canvas').getContext('webgl').getExtension('WEBGL_compressed_texture_astc');
+
+      return device.isMobileDevice;
     },
   },
 
