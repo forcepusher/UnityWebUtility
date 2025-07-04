@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Packages/com.agava.webutility/Samples/Playtesting/PlaytestingScene.unity
+    path: Packages/com.bananaparty.webutility/Samples/Playtesting/PlaytestingScene.unity
     guid: f217115a68ee0f9459dd5bd77192cdae
   m_configObjects: {}
